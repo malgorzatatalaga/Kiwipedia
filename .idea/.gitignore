@@ -3,3 +3,6 @@
 /httpRequests/
 /dataSources/
 /dataSources.local.xml
+/jarRepositories.xml
+/encodings.xml
+/compiler.xml
