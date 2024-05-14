@@ -1,7 +1,7 @@
 package com.example.kiwipedia.backend.controller;
 
-import com.example.kiwipedia.backend.controller.dto.LoginDTO;
-import com.example.kiwipedia.backend.controller.dto.RegisterDTO;
+import com.example.kiwipedia.backend.dto.LoginDTO;
+import com.example.kiwipedia.backend.dto.RegisterDTO;
 import com.example.kiwipedia.backend.model.Role;
 import com.example.kiwipedia.backend.model.UserEntity;
 import com.example.kiwipedia.backend.repository.RoleRepository;

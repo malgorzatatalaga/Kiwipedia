@@ -1,4 +1,4 @@
-package com.example.kiwipedia.backend.controller.dto;
+package com.example.kiwipedia.backend.dto;
 
 import lombok.Data;
 
