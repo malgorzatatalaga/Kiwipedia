@@ -39,23 +39,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails admin =
-                User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("password")
-                        .roles("ADMIN")
-                        .build();
-        UserDetails contributor =
-                User.withDefaultPasswordEncoder()
-                        .username("contributor")
-                        .password("password")
-                        .roles("CONTRIBUTOR")
-                        .build();
-        return new InMemoryUserDetailsManager(admin, contributor);
-    }
-
-    @Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authenticationConfiguration) throws Exception{
         return authenticationConfiguration.getAuthenticationManager();
