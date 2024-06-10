@@ -18,13 +18,15 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeRequests()
+                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                .requestMatchers("/login").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
                 .requestMatchers("/user/**").hasRole( "USER")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 // Specify the URL for the registration page
-
+                .defaultSuccessUrl("/default", true)
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();
 
