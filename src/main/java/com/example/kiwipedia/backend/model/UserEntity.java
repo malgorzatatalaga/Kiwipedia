@@ -13,6 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 public class UserEntity {
 
+    public int getId() {
+        return id;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

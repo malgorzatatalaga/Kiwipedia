@@ -1,32 +1,41 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Kiwi Brunatny - Wikipedia</title>
+  <title th:text="${kiwi.commonName} + ' - Wikipedia'"></title>
 </head>
 <body>
-<h1>Kiwi Brunatny (Apteryx australis)</h1>
-<h2>Taksonomia</h2>
-<p>Wyróżnia się dwa podgatunki: <em>A. australis australis</em> Shaw, 1813 i <em>A. australis lawryi</em> Rothschild, 1893. Dawniej za podgatunek kiwi brunatnego uznawano także kiwi północnego (<em>A. mantelli</em>).</p>
+<h1 th:text="${kiwi.commonName} + ' (' + ${kiwi.name} + ')'"></h1>
+<div th:if="${not #strings.isEmpty(successMessage)}">
+  <p th:text="${successMessage}"></p>
+</div>
 
-<h2>Zasięg występowania</h2>
-<p>Kiwi brunatny występuje w zależności od podgatunku:
-<ul>
-  <li><em>australis australis</em> – południowo-zachodnia Wyspa Południowa.</li>
-  <li><em>australis lawryi</em> – Wyspa Stewart.</li>
-</ul>
-</p>
+<div>
+  <h2>Taksonomia</h2>
+  <p th:text="${kiwi.description}"></p>
+</div>
 
-<h2>Morfologia</h2>
-<p>Długość ciała 50–65 cm, długość dzioba samic 130–205 mm, samców 110–155 mm; masa ciała samic 2060–3850 g, samców 1440–3060 g.</p>
-<p>Jest nielotem. Ma szczątkowe skrzydła ukryte pod przypominającym włosy upierzeniem. Brak ogona, małe ciemnobrązowe oczy. Słabo widzi, ale ma dobrze rozwinięty słuch i węch.</p>
+<!-- Update Form -->
+<form action="/gatunki/update" method="post">
+  <input type="hidden" name="id" th:value="${kiwi.id}" />
 
-<h2>Ekologia i zachowanie</h2>
-<p>Nazwa tego ptaka pochodzi od dźwięku „kiwi”, którym samce nawołują samice w okresie godowym.</p>
-<p>Żyje w parach, ale niekiedy w grupach rodzinnych złożonych z 6–12 ptaków. Prowadzi nocny tryb życia. Żywi się owadami i ich larwami, robakami, pająkami, owocami, czasem gadami i płazami.</p>
-<p>Gniazduje zwykle w norach lub innych zagłębieniach, takich jak dziuple w zwalonych drzewach lub szczeliny skalne. Samica składa 1–2 wielkie białe jaja, z tym że ewentualne drugie jajo składane jest 25–30 dni po pierwszym. Okres inkubacji wynosi 75–84 dni, a zajmują się nią oboje rodzice. Pisklęta przychodzą na świat dobrze rozwinięte. Opiekuje się nimi przez jakiś czas samiec. Opuszczają gniazdo po około 5–6 dniach od wyklucia. Samce osiągają dojrzałość płciową po 14 miesiącach, a samice po 2 latach. Rekordowa odnotowana długość życia to 35 lat.</p>
+  <label for="commonName">Common Name:</label>
+  <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
 
-<h2>Status</h2>
-<p>Międzynarodowa Unia Ochrony Przyrody (IUCN) uznaje kiwi brunatnego za gatunek narażony (VU – Vulnerable) nieprzerwanie od 1996 roku. Liczebność populacji szacuje się na około 19 900 dorosłych osobników, a jej trend jest spadkowy. Jako główne zagrożenie dla gatunku podaje się obecność introdukowanych drapieżnych ssaków, które zjadają jaja, pisklęta i osobniki młodociane, a niekiedy także dorosłe. Według danych nowozelandzkiego departamentu ochrony przyrody, obecnie 9 na 10 piskląt wykluwających się w środowisku naturalnym pada ich ofiarą już w pierwszym roku życia. Nowa Zelandia prowadzi programy ochronne polegające na monitorowaniu liczebności gatunku, ograniczeniu liczebności zagrażających mu drapieżników, ponadto zabiera się jaja, inkubuje je, a na wolność wypuszcza się odchowane osobniki, zdolne stawić czoła drapieżnikom.</p>
+  <label for="name">Scientific Name:</label>
+  <input type="text" id="name" name="name" th:value="${kiwi.name}" />
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
+
+  <button type="submit">Update</button>
+</form>
+
+<!-- Delete Button/Form -->
+<form action="/gatunki/delete" method="post">
+  <input type="hidden" name="id" th:value="${kiwi.id}" />
+  <button type="submit">Delete</button>
+</form>
+
 </body>
 </html>

@@ -5,8 +5,7 @@ import com.example.kiwipedia.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,6 +15,7 @@ public class AdminController {
 
     @Autowired
     private UserRepository userRepository;
+
     @GetMapping("/dashboard")
     public String admin() {
         return "admin";
@@ -27,5 +27,12 @@ public class AdminController {
         model.addAttribute("users", users);
         return "manageUsers";
     }
+
+    @PostMapping ("/manage-users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id) {
+        userRepository.deleteById(id);
+        return "redirect:/admin/manage-users";
+    }
+
 
 }
