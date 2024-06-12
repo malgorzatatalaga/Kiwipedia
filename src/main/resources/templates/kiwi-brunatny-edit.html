@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit></title>
+  <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+<nav>
+  <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
+    <li style="display: inline; margin-right: 10px;"><a href="#facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+    <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
+    <li style="display: inline; margin-right: 10px;"><a href="#threats" style="text-decoration: none; color: white; padding: 10px 20px;">Zagrożenia</a></li>
+    <li style="display: inline; margin-right: 10px;"><a href="#habitat" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+    <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
+  </ul>
+</nav>
+
+<h1 th:text="'Edytuj ' + ${kiwi.commonName}">Edit Default Common Name</h1>
+
+<!-- Update Form -->
+<form action="/gatunki/update" method="post">
+  <input type="hidden" name="id" th:value="${kiwi.id}" />
+
+  <label for="commonName">Common Name:</label>
+  <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
+
+  <label for="name">Scientific Name:</label>
+  <input type="text" id="name" name="name" th:value="${kiwi.name}" />
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
+
+  <button type="submit">Update</button>
+</form>
+
+<!-- Delete Button/Form -->
+<form action="/gatunki/delete" method="post">
+  <input type="hidden" name="id" th:value="${kiwi.id}" />
+  <button type="submit">Delete</button>
+</form>
+
+<a th:href="@{/gatunki/kiwi-brunatny}">Back to List</a>
+</body>
+</html>

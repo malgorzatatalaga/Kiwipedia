@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -31,7 +32,19 @@ public class KiwiController {
         } else {
             model.addAttribute("errorMessage", "Kiwi species not found.");
         }
-        return "kiwibrunatny";
+        return "kiwi-brunatny";
+    }
+
+    @GetMapping("/gatunki/kiwi-brunatny/edit")
+    public String editKiwiBrunatny(@RequestParam("id") Integer id, Model model) {
+        Optional<Species> kiwiOptional = speciesService.getSpeciesById(id);
+        if (kiwiOptional.isPresent()) {
+            model.addAttribute("kiwi", kiwiOptional.get());
+            return "kiwi-brunatny-edit";
+        } else {
+            model.addAttribute("errorMessage", "Kiwi species not found.");
+            return "redirect:/gatunki";
+        }
     }
 
     @PostMapping("/gatunki/update")
