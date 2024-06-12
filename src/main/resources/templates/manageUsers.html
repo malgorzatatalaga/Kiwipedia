@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista Użytkowników</title>
+    <link rel="stylesheet" href="/css/user.css">
+</head>
+<body>
+<h1>Lista Użytkowników</h1>
+<div>
+    <ul>
+        <li th:each="user : ${users}">
+            <span th:text="${user.username}"></span> :
+            <span th:each="role : ${user.roles}">
+                    <span th:text="${role.name}"></span>;
+                </span>
+        </li>
+    </ul>
+</div>
+<a href="/logout">Wyloguj się</a>
+</body>
+</html>
