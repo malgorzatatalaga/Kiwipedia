@@ -1,4 +1,4 @@
-package com.example.kiwipedia.backend.controller;
+package com.example.kiwipedia.backend.controller.users;
 
 import com.example.kiwipedia.backend.model.UserEntity;
 import com.example.kiwipedia.backend.repository.UserRepository;

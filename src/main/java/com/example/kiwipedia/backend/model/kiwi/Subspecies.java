@@ -1,5 +1,6 @@
-package com.example.kiwipedia.backend.model;
+package com.example.kiwipedia.backend.model.kiwi;
 
+import com.example.kiwipedia.backend.model.kiwi.Species;
 import jakarta.persistence.*;
 
 @Entity
@@ -14,13 +15,13 @@ public class Subspecies {
     private String name;
 
     @Column(length = 1000)
-    private String description;
+    private String description;  // Pole przechowujące zarówno opis, jak i informacje o obszarze występowania
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "species_id")
     private Species species;
 
-    // Getters and Setters
+    // Gettery i settery
     public Integer getId() {
         return id;
     }

@@ -1,4 +1,4 @@
-package com.example.kiwipedia.backend.controller;
+package com.example.kiwipedia.backend.controller.users;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.example.kiwipedia.backend.model;
+package com.example.kiwipedia.backend.model.kiwi;
 
 import jakarta.persistence.*;
 import java.util.HashSet;
@@ -20,22 +20,6 @@ public class Species {
 
     @Column(length = 1000)
     private String description;
-
-    // Adding physical characteristics
-    @Column(name = "female_weight")
-    private Integer femaleWeight;
-
-    @Column(name = "male_weight")
-    private Integer maleWeight;
-
-    @Column(name = "body_length")
-    private Integer bodyLength;
-
-    @Column(name = "female_beak_length")
-    private Integer femaleBeakLength;
-
-    @Column(name = "male_beak_length")
-    private Integer maleBeakLength;
 
     @OneToMany(mappedBy = "species", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Subspecies> subspecies = new HashSet<>();
@@ -71,46 +55,6 @@ public class Species {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Integer getFemaleWeight() {
-        return femaleWeight;
-    }
-
-    public void setFemaleWeight(Integer femaleWeight) {
-        this.femaleWeight = femaleWeight;
-    }
-
-    public Integer getMaleWeight() {
-        return maleWeight;
-    }
-
-    public void setMaleWeight(Integer maleWeight) {
-        this.maleWeight = maleWeight;
-    }
-
-    public Integer getBodyLength() {
-        return bodyLength;
-    }
-
-    public void setBodyLength(Integer bodyLength) {
-        this.bodyLength = bodyLength;
-    }
-
-    public Integer getFemaleBeakLength() {
-        return femaleBeakLength;
-    }
-
-    public void setFemaleBeakLength(Integer femaleBeakLength) {
-        this.femaleBeakLength = femaleBeakLength;
-    }
-
-    public Integer getMaleBeakLength() {
-        return maleBeakLength;
-    }
-
-    public void setMaleBeakLength(Integer maleBeakLength) {
-        this.maleBeakLength = maleBeakLength;
     }
 
     public Set<Subspecies> getSubspecies() {

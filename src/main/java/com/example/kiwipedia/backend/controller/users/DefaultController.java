@@ -1,4 +1,4 @@
-package com.example.kiwipedia.backend.controller;
+package com.example.kiwipedia.backend.controller.users;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.AuthorityUtils;

@@ -30,7 +30,6 @@ public class UserService {
         newUser.setUsername(registerDTO.getUsername());
         newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
 
-        // Znajdź rolę USER i przypisz ją do nowego użytkownika
         Role userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
         newUser.setRoles(List.of(userRole));

@@ -16,19 +16,19 @@
   </ul>
 </nav>
 
-<h1 th:text="'Edytuj ' + ${kiwi.commonName}">Edit Default Common Name</h1>
+<h1 th:text="'Edytuj ' + ${kiwi.commonName}"></h1>
 
 <!-- Update Form -->
 <form action="/gatunki/update" method="post">
   <input type="hidden" name="id" th:value="${kiwi.id}" />
 
-  <label for="commonName">Common Name:</label>
+  <label for="commonName">Nazwa zwyczajowa:</label>
   <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
 
-  <label for="name">Scientific Name:</label>
+  <label for="name">Nazwa naukowa:</label>
   <input type="text" id="name" name="name" th:value="${kiwi.name}" />
 
-  <label for="description">Description:</label>
+  <label for="description">Opis:</label>
   <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
 
   <button type="submit">Update</button>
@@ -40,6 +40,6 @@
   <button type="submit">Delete</button>
 </form>
 
-<a th:href="@{/gatunki/kiwi-brunatny}">Back to List</a>
+<a th:href="@{/gatunki/kiwi-brunatny}">Powrót do strony Kiwi Brunatny</a>
 </body>
 </html>
