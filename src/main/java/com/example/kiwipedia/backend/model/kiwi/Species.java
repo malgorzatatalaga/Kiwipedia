@@ -21,10 +21,7 @@ public class Species {
     @Column(length = 1000)
     private String description;
 
-    @OneToMany(mappedBy = "species", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Subspecies> subspecies = new HashSet<>();
 
-    // Getters and Setters
     public Integer getId() {
         return id;
     }
@@ -55,13 +52,5 @@ public class Species {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public Set<Subspecies> getSubspecies() {
-        return subspecies;
-    }
-
-    public void setSubspecies(Set<Subspecies> subspecies) {
-        this.subspecies = subspecies;
     }
 }

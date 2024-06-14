@@ -2,10 +2,12 @@ package com.example.kiwipedia.backend.controller.users;
 
 import com.example.kiwipedia.backend.model.UserEntity;
 import com.example.kiwipedia.backend.repository.UserRepository;
+import com.example.kiwipedia.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -28,11 +30,14 @@ public class AdminController {
         return "manageUsers";
     }
 
-    @PostMapping ("/manage-users/delete/{id}")
-    public String deleteUser(@PathVariable("id") Integer id) {
-        userRepository.deleteById(id);
+    @Autowired
+    private UserService userService;
+
+    @PostMapping("/manage-users/delete/{id}")
+    public String deleteUser(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) {
+        userService.deleteUserById(id);
+        redirectAttributes.addFlashAttribute("successMessage", "User deleted successfully!");
         return "redirect:/admin/manage-users";
     }
-
 
 }

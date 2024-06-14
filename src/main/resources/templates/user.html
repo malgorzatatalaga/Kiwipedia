@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Panel Użytkownika</title>
@@ -8,19 +8,25 @@
 <body>
 <nav>
     <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
-        <li style="display: inline; margin-right: 10px;"><a href="#facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/kiwi-facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
         <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#threats" style="text-decoration: none; color: white; padding: 10px 20px;">Zagrożenia</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#habitat" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Admin Panel</a>
+        </li>
         <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
     </ul>
 </nav>
 <h1>Witaj w Kiwipedii!</h1>
 <div>
     <h2>Dzisiejsza ciekawostka o kiwi</h2>
-    <p>Kiwi mają bardzo rozwinięty zmysł węchu, co jest nietypowe dla ptaków.</p>
+    <p>Kiwi wydaje odgłosy, które służą do obrony terytorium.</p>
 </div>
-<div>
+<div style="text-align: center; margin-top: 20px;">
+    <audio controls>
+        <source src="/audio/kiwi-odglos.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 </div>
 </body>
 </html>

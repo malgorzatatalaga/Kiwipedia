@@ -1,28 +1,38 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Panel Admina</title>
+    <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
 <nav>
     <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
-        <li style="display: inline; margin-right: 10px;"><a href="#facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/kiwi-facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
         <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#threats" style="text-decoration: none; color: white; padding: 10px 20px;">Zagrożenia</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#habitat" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
+        </li>
         <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
     </ul>
 </nav>
 
-<nav>
-    <ul>
-        <li><a href="/admin/manage-users">Zarządzaj użytkownikami</a></li>
-        <li><a href="/manage-content">Zarządzaj treścią</a></li>
-        <li><a href="/logout">Wyloguj się</a></li>
-    </ul>
-</nav>
 <h1>Witaj w Kiwipedii!</h1>
-<p>Panel Admina</p>
+<div>
+    <h2>Dzisiejsza ciekawostka o kiwi</h2>
+    <p>Kiwi wydaje odgłosy, które służą do obrony terytorium.</p>
+    <p>Posłuchaj odgłosów:</p>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+    <audio controls>
+        <source src="/audio/kiwi-odglos.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+</div>
+<div>
+    <h2>Panel Admina</h2>
+    <a href="/admin/manage-users" class="button">Zarządaj użytkowinikami</a>
+</div>
 </body>
 </html>

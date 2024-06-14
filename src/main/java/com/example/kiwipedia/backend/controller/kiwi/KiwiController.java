@@ -52,5 +52,10 @@ public class KiwiController {
         return "redirect:/gatunki";
     }
 
+    @GetMapping("/gdzie-zyje-kiwi")
+    public String showKiwiPage(Model model) {
+        return "gdzie-zyje-kiwi";
+    }
+
 }
 

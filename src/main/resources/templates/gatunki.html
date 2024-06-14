@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Gatunki Kiwi</title>
@@ -9,10 +9,12 @@
 <body>
 <nav>
     <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
-        <li style="display: inline; margin-right: 10px;"><a href="#facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/kiwi-facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
         <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#threats" style="text-decoration: none; color: white; padding: 10px 20px;">Zagrożenia</a></li>
-        <li style="display: inline; margin-right: 10px;"><a href="#habitat" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
+        </li>
         <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
     </ul>
 </nav>

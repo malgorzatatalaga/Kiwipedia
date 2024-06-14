@@ -2,7 +2,7 @@
 <html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Edit></title>
+  <title>Fakty o kiwi</title>
   <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
@@ -12,29 +12,20 @@
     <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
     <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
     <li sec:authorize="hasRole('ADMIN')">
-      <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Admin Panel</a>
+      <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
     </li>
     <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
   </ul>
 </nav>
-
-<h1 th:text="'Edytuj ' + ${kiwi.commonName}"></h1>
-
-<form action="/gatunki/update" method="post">
-  <input type="hidden" name="id" th:value="${kiwi.id}" />
-
-  <label for="commonName">Common Name:</label>
-  <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
-
-  <label for="name">Scientific Name:</label>
-  <input type="text" id="name" name="name" th:value="${kiwi.name}" />
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
-
-  <button type="submit" class="button">Zaktualizuj</button>
-</form>
-
-<a class="button" th:href="@{/gatunki/kiwi-brunatny}">Powrót do Kiwi Brunatne</a>
+<h1>Fakty o kiwi</h1>
+<div>
+  <div th:each="fact : ${facts}">
+    <h2 th:text="${fact.title}">Tytuł faktu</h2>
+    <p th:text="${fact.content}">Treść faktu</p>
+  </div>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+  <a href="/kiwi-facts/add-fact" class="button">Dodaj nową ciekawostkę</a>
+</div>
 </body>
 </html>

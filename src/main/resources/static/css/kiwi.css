@@ -1,20 +1,18 @@
 .button {
     display: inline-block;
-    padding: 10px 20px;
-    background-color: white;
-    color: black;
     text-align: center;
-    text-decoration: underline;
-    font-size: 16px;
-    border: 1px solid black;
-    border-radius: 5px;
+    text-decoration: none;
+    font-size: 15px;
+    padding: 10px;
+    background: linear-gradient(135deg, #6e8efb, #a777e3);
+    color: white;
+    border: none;
+    border-radius: 20px;
     cursor: pointer;
-
-transition: background-color 0.3s, color 0.3s;
 }
 
 .button:hover {
-    background-color: honeydew;
+    opacity: 0.9;
 }
 
 body {
