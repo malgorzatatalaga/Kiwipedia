@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pl" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6">
 <head>
     <meta charset="UTF-8">
     <title>Lista Użytkowników</title>
@@ -12,26 +12,42 @@
         <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
         <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
         <li sec:authorize="hasRole('ADMIN')">
-            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Admin Panel</a>
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
         </li>
         <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
     </ul>
 </nav>
 <h1>Lista Użytkowników</h1>
 <div>
-    <ul>
-        <li th:each="user : ${users}">
-            <span th:text="${user.username}"></span> :
-            <span th:each="role : ${user.roles}">
-                <span th:text="${role.name}"></span>;
-            </span>
-            <form th:action="@{'/admin/manage-users/delete/' + ${user.id}}" method="post">
-                <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?');">Usuń</button>
-            </form>
-        </li>
-    </ul>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nazwa użytkownika</th>
+            <th>Rola użytkownika</th>
+            <th>Akcje</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.username}">username</td>
+            <td>
+                    <span th:each="role : ${user.roles}">
+                        <span th:text="${role.name}"></span>;
+                    </span>
+            </td>
+            <td>
+                <button type="submit" th:onclick="'location.href=\'/admin/edit-user/' + ${user.id} + '\''">Edytuj użytkownika</button>
+                <form th:action="@{'/admin/manage-users/delete/' + ${user.id}}" method="post" style="display:inline;">
+                    <button type="submit" onclick="return confirm('Czy na pewno chcesz usunąć tego użytkownika?');">Usuń</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
-<div>
+<div style="margin-top: 20px;">
     <a href="/admin/dashboard" class="button">Powrót do panelu admina</a>
 </div>
 </body>

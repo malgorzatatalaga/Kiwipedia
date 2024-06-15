@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
-  <title>Edytuj Kiwi Brunatny</title>
+  <title>Historia Edycji</title>
   <link rel="stylesheet" href="/css/navbar.css">
 </head>
 <body>
@@ -17,24 +17,24 @@
     <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
   </ul>
 </nav>
-
-<h1 th:text="'Edytuj ' + ${kiwi.commonName}"></h1>
-
-<form th:action="@{/gatunki/kiwi-brunatny/update}" method="post">
-  <input type="hidden" name="id" th:value="${kiwi.id}" />
-
-  <label for="commonName">Common Name:</label>
-  <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
-
-  <label for="name">Scientific Name:</label>
-  <input type="text" id="name" name="name" th:value="${kiwi.name}" />
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
-
-  <button type="submit" class="button">Zaktualizuj</button>
-</form>
-
-<a class="button" th:href="@{/gatunki/kiwi-brunatny}">Powrót do Kiwi Brunatne</a>
+<h2>Historia Edycji dla strony kiwi brunatny</h2>
+<table>
+  <thead>
+  <tr>
+    <th>Data edycji</th>
+    <th>Użytkownik</th>
+    <th>Stara treść</th>
+    <th>Nowa treść</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="edit : ${editHistoryList}">
+    <td th:text="${edit.editTime}">2023-06-13</td>
+    <td th:text="${edit.editedBy.username}">admin</td>
+    <td th:text="${edit.oldText}">Old content</td>
+    <td th:text="${edit.newText}">New content</td>
+  </tr>
+  </tbody>
+</table>
 </body>
 </html>

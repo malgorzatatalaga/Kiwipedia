@@ -12,6 +12,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -45,11 +47,24 @@ public class UserService {
     public void deleteUserById(Integer id) {
         UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Usuń powiązania w tabeli user_roles
         user.getRoles().clear();
         entityManager.merge(user);
-
-        // Usuń użytkownika
         userRepository.deleteById(id);
+    }
+
+    public UserEntity getUserById(int id) {
+        return userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
+    @Transactional
+    public void updateUsernameAndRole(int id, String username, String roleName) {
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new RuntimeException("User not found"));
+        user.setUsername(username);
+
+        Role newRole = roleRepository.findByName(roleName).orElseThrow(() -> new RuntimeException("Role not found"));
+
+        user.setRoles(new ArrayList<>(Collections.singletonList(newRole)));
+
+        userRepository.save(user);
     }
 }

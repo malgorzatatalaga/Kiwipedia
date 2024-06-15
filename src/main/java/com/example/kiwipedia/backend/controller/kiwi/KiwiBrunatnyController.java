@@ -1,6 +1,8 @@
 package com.example.kiwipedia.backend.controller.kiwi;
 
+import com.example.kiwipedia.backend.model.EditHistory;
 import com.example.kiwipedia.backend.model.kiwi.Species;
+import com.example.kiwipedia.backend.service.PageEditService;
 import com.example.kiwipedia.backend.service.kiwi.SpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ public class KiwiBrunatnyController {
     @Autowired
     private SpeciesService speciesService;
 
+    @Autowired
+    private PageEditService pageEditService;
 
     @GetMapping
     public String kiwiBrunatny(Model model) {
@@ -38,7 +42,6 @@ public class KiwiBrunatnyController {
         if (kiwiOptional.isPresent()) {
             Species kiwi = kiwiOptional.get();
             model.addAttribute("kiwi", kiwi);
-
             return "kiwi-brunatny-edit";
         } else {
             model.addAttribute("errorMessage", "Species not found.");
@@ -47,8 +50,17 @@ public class KiwiBrunatnyController {
     }
 
     @PostMapping("/update")
-    public String updateData(@RequestParam("type") String type, @ModelAttribute("kiwi") Species species) {
-        speciesService.saveSpecies(species);
+    public String updateData(@ModelAttribute("kiwi") Species species) {
+        Optional<Species> kiwiOptional = speciesService.getSpeciesById(species.getId());
+        if (kiwiOptional.isPresent()) {
+            Species oldKiwi = kiwiOptional.get();
+            String oldContent = oldKiwi.getDescription();
+            String newContent = species.getDescription();
+            if (!oldContent.equals(newContent)) {
+                pageEditService.saveEditHistory("kiwi-brunatny", oldContent, newContent);
+            }
+            speciesService.saveSpecies(species);
+        }
         return "redirect:/gatunki/kiwi-brunatny";
     }
 
@@ -57,5 +69,12 @@ public class KiwiBrunatnyController {
         speciesService.deleteSpecies(id);
         redirectAttributes.addFlashAttribute("successMessage", "Kiwi brunatny deleted successfully!");
         return "redirect:/gatunki/kiwi-brunatny";
+    }
+
+    @GetMapping("/edit-history")
+    public String showEditHistory(Model model) {
+        List<EditHistory> editHistoryList = pageEditService.getEditHistoryByPageName("kiwi-brunatny");
+        model.addAttribute("editHistoryList", editHistoryList);
+        return "edit-history";
     }
 }

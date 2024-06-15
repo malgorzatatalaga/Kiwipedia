@@ -39,3 +39,7 @@ body {
     cursor: pointer;
 }
 
+.button:hover {
+    opacity: 0.9;
+}
+
