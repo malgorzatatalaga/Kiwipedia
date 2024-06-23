@@ -1,6 +1,5 @@
 package com.example.kiwipedia.backend.controller.kiwi;
 
-import com.example.kiwipedia.backend.model.EditHistory;
 import com.example.kiwipedia.backend.model.kiwi.Species;
 import com.example.kiwipedia.backend.service.PageEditService;
 import com.example.kiwipedia.backend.service.kiwi.SpeciesService;
@@ -8,14 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/gatunki/kiwi-brunatny")
-public class KiwiBrunatnyController {
+@RequestMapping("/gatunki/kiwi-plamisty")
+public class KiwiPlamistyController {
 
     @Autowired
     private SpeciesService speciesService;
@@ -24,24 +21,24 @@ public class KiwiBrunatnyController {
     private PageEditService pageEditService;
 
     @GetMapping
-    public String kiwiBrunatny(Model model) {
-        Optional<Species> kiwiOptional = speciesService.getSpeciesByName("Apteryx australis");
+    public String kiwiPlamisty(Model model) {
+        Optional<Species> kiwiOptional = speciesService.getSpeciesByName("Apteryx maxima");
         if (kiwiOptional.isPresent()) {
             model.addAttribute("kiwi", kiwiOptional.get());
         } else {
             model.addAttribute("errorMessage", "Kiwi species not found.");
         }
-        return "kiwi-brunatny";
+        return "kiwi-plamisty";
     }
 
     @GetMapping("/edit")
-    public String editKiwiBrunatny(Model model) {
-        Integer fixedId = 1;
+    public String editKiwiPlamisty(Model model) {
+        Integer fixedId = 2;
         Optional<Species> kiwiOptional = speciesService.getSpeciesById(fixedId);
         if (kiwiOptional.isPresent()) {
             Species kiwi = kiwiOptional.get();
             model.addAttribute("kiwi", kiwi);
-            return "kiwi-brunatny-edit";
+            return "kiwi-plamisty-edit";
         } else {
             model.addAttribute("errorMessage", "Species not found.");
             return "redirect:/gatunki";
@@ -49,33 +46,19 @@ public class KiwiBrunatnyController {
     }
 
     @PostMapping("/update")
-    public String updateData(@ModelAttribute("kiwi") Species species) {
-        Integer fixedId = 1;
+    public String updateKiwiPlamisty(@ModelAttribute("kiwi") Species species) {
+        Integer fixedId = 2;
         Optional<Species> kiwiOptional = speciesService.getSpeciesById(fixedId);
         if (kiwiOptional.isPresent()) {
             Species oldKiwi = kiwiOptional.get();
             String oldContent = oldKiwi.getDescription();
             String newContent = species.getDescription();
             if (!oldContent.equals(newContent)) {
-                pageEditService.saveEditHistory("kiwi-brunatny", oldContent, newContent);
+                pageEditService.saveEditHistory("kiwi-plamisty", oldContent, newContent);
             }
             oldKiwi.setDescription(newContent);
             speciesService.saveSpecies(oldKiwi);
         }
-        return "redirect:/gatunki/kiwi-brunatny";
-    }
-
-    @PostMapping("/delete/{id}")
-    public String deleteKiwiBrunatny(@PathVariable Integer id, RedirectAttributes redirectAttributes) {
-        speciesService.deleteSpecies(id);
-        redirectAttributes.addFlashAttribute("successMessage", "Kiwi brunatny deleted successfully!");
-        return "redirect:/gatunki/kiwi-brunatny";
-    }
-
-    @GetMapping("/edit-history")
-    public String showEditHistory(Model model) {
-        List<EditHistory> editHistoryList = pageEditService.getEditHistoryByPageName("kiwi-brunatny");
-        model.addAttribute("editHistoryList", editHistoryList);
-        return "historia-edycji";
+        return "redirect:/gatunki/kiwi-plamisty";
     }
 }
