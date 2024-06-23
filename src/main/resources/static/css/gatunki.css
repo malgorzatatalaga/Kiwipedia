@@ -20,7 +20,7 @@ img {
     height: auto;
 }
 
-.button {
+.text-side button {
     display: block;
     width: 100%;
     padding: 10px;
@@ -31,4 +31,7 @@ img {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+}
+.text-side button:hover {
+    opacity: 0.9;
 }

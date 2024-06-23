@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Statystyki Stron</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/navbar.css">
+</head>
+<body>
+<nav>
+    <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
+        <li style="display: inline; margin-right: 10px;"><a href="/kiwi-facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
+        </li>
+        <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
+    </ul>
+</nav>
+<h1>Statystyki Stron</h1>
+
+<h2>Liczba Edycji na Stronach</h2>
+<canvas id="pageEditCountsChart"></canvas>
+
+<script>
+    fetch('/admin/pages')
+        .then(response => response.json())
+        .then(data => {
+            const ctx2 = document.getElementById('pageEditCountsChart').getContext('2d');
+            const pageEditCountsChart = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(data),
+                    datasets: [{
+                        label: 'Liczba Edycji na Stronach',
+                        data: Object.values(data),
+                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                precision: 0
+                            }
+                        }
+                    }
+                }
+            });
+        });
+</script>
+</body>
+</html>

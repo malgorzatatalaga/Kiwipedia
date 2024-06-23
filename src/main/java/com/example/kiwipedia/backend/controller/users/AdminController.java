@@ -87,19 +87,23 @@ public class AdminController {
 
         Map<String, Object> stats = new HashMap<>();
         stats.put("monthlyRegistrations", monthlyRegistrations);
-
-        // Mock data for pageEditCounts as an example
-        Map<String, Integer> pageEditCounts = new HashMap<>();
-        pageEditCounts.put("Page 1", 5);
-        pageEditCounts.put("Page 2", 3);
-        pageEditCounts.put("Page 3", 8);
-        stats.put("pageEditCounts", pageEditCounts);
-
         return ResponseEntity.ok(stats);
     }
 
     @GetMapping("/statistics")
     public String showStatistics(Model model) {
         return "statystyki-uzytkownicy";
+    }
+
+    @GetMapping("/pages")
+    public ResponseEntity<Map<String, Integer>> getPageEditStats() {
+        Map<String, Integer> pageEditCounts = editHistoryService.getPageEditCounts();
+        System.out.println("Page Edit Counts: " + pageEditCounts);
+        return ResponseEntity.ok(pageEditCounts);
+    }
+
+    @GetMapping("/pages-statistics")
+    public String showEditStatistics(Model model) {
+        return "statystyki-strony";
     }
 }
