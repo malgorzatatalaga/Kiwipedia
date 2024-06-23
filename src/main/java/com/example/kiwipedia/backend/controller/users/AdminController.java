@@ -103,7 +103,7 @@ public class AdminController {
     }
 
     @GetMapping("/pages-statistics")
-    public String showEditStatistics(Model model) {
+    public String showEditStatistics() {
         return "statystyki-strony";
     }
 }

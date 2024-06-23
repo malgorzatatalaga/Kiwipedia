@@ -11,6 +11,6 @@ import java.util.List;
 public interface EditHistoryRepository extends JpaRepository<EditHistory, Integer> {
     List<EditHistory> findByPageName(String pageName);
 
-    @Query("SELECT eh.pageName, COUNT(eh) FROM EditHistory eh GROUP BY eh.pageName")
+    @Query("SELECT eh.pageName, COUNT(eh.id) FROM EditHistory eh GROUP BY eh.pageName")
     List<Object[]> countEditsPerPage();
 }

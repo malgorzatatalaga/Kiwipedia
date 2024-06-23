@@ -1,5 +1,6 @@
 package com.example.kiwipedia.backend.controller.kiwi;
 
+import com.example.kiwipedia.backend.model.EditHistory;
 import com.example.kiwipedia.backend.model.kiwi.Species;
 import com.example.kiwipedia.backend.service.PageEditService;
 import com.example.kiwipedia.backend.service.kiwi.SpeciesService;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -22,7 +24,8 @@ public class KiwiPlamistyController {
 
     @GetMapping
     public String kiwiPlamisty(Model model) {
-        Optional<Species> kiwiOptional = speciesService.getSpeciesByName("Apteryx maxima");
+        Integer fixedId = 2;
+        Optional<Species> kiwiOptional = speciesService.getSpeciesById(fixedId);
         if (kiwiOptional.isPresent()) {
             model.addAttribute("kiwi", kiwiOptional.get());
         } else {
@@ -60,5 +63,12 @@ public class KiwiPlamistyController {
             speciesService.saveSpecies(oldKiwi);
         }
         return "redirect:/gatunki/kiwi-plamisty";
+    }
+
+    @GetMapping("/edit-history")
+    public String showEditHistory(Model model) {
+        List<EditHistory> editHistoryList = pageEditService.getEditHistoryByPageName("kiwi-plamisty");
+        model.addAttribute("editHistoryList", editHistoryList);
+        return "historia-edycji";
     }
 }

@@ -31,7 +31,7 @@ public class PageEditService {
         editHistory.setEditTime(LocalDateTime.now());
         editHistory.setEditedBy(user);
 
-        System.out.println("Saving edit history: " + editHistory); // Dodane logowanie
+        System.out.println("Saving edit history: " + editHistory);
 
         editHistoryRepository.save(editHistory);
     }
