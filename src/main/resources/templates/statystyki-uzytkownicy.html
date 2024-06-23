@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/navbar.css">
+    <title>Panel Administratora - Statystyki</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<nav>
+    <ul style="list-style-type: none; padding: 0; background-color: #333; margin: 0; text-align: center;">
+        <li style="display: inline; margin-right: 10px;"><a href="/kiwi-facts" style="text-decoration: none; color: white; padding: 10px 20px;">Fakty o kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gatunki" style="text-decoration: none; color: white; padding: 10px 20px;">Gatunki kiwi</a></li>
+        <li style="display: inline; margin-right: 10px;"><a href="/gdzie-zyje-kiwi" style="text-decoration: none; color: white; padding: 10px 20px;">Gdzie żyje kiwi?</a></li>
+        <li sec:authorize="hasRole('ADMIN')">
+            <a href="/admin/dashboard" style="text-decoration: none; color: white; padding: 10px 20px;">Panel Admina</a>
+        </li>
+        <li style="display: inline; margin-right: 10px;"><a href="/logout" style="text-decoration: none; color: white; padding: 10px 20px;">Wyloguj się</a></li>
+    </ul>
+</nav>
+<h1>Statystyki</h1>
+
+<h2>Rejestracje z podziałem na miesiąc</h2>
+<canvas id="monthlyRegistrationsChart" width="300" height="50"></canvas>
+
+<script>
+    fetch('/admin/stats')
+        .then(response => response.json())
+        .then(data => {
+            // Monthly Registrations Chart
+            const ctx1 = document.getElementById('monthlyRegistrationsChart').getContext('2d');
+            const monthlyRegistrationsChart = new Chart(ctx1, {
+                type: 'line',
+                data: {
+                    labels: ['Styczeń', 'Luty', 'Marzec', 'Kwiecień', 'Maj', 'Czerwiec', 'Lipiec', 'Sierpień', 'Wrzesień', 'Październik', 'Listopad', 'Grudzień'],
+                    datasets: [{
+                        label: 'Rejestracje miesięczne',
+                        data: data.monthlyRegistrations,
+                        borderColor: 'rgba(75, 192, 192, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        });
+</script>
+</body>
+</html>

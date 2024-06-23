@@ -29,7 +29,7 @@ public class KiwiFactsController {
 
     @GetMapping("/add-fact")
     public String showAddFactForm() {
-        return "add-kiwi-fact";
+        return "dodaj-kiwi-fakt";
     }
 
     @PostMapping("/add-fact")

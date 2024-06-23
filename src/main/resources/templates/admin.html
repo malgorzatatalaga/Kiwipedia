@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Panel Admina</title>
     <link rel="stylesheet" href="/css/navbar.css">
+    <link rel="stylesheet" href="/css/admin.css">
 </head>
 <body>
 <nav>
@@ -19,21 +20,18 @@
 </nav>
 
 <h1>Witaj w Kiwipedii!</h1>
-<div>
-    <h2>Dzisiejsza ciekawostka o kiwi</h2>
-    <p>Kiwi wydaje odgłosy, które służą do obrony terytorium.</p>
-    <p>Posłuchaj odgłosów:</p>
-</div>
-<div style="text-align: center; margin-top: 20px;">
-    <audio controls>
-        <source src="/audio/kiwi-odglos.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-    </audio>
-</div>
-<div>
     <h2>Panel Admina</h2>
-    <a href="/admin/manage-users" class="button">Zarządaj użytkowinikami</a></br>
-    <a href="/admin/edit-history/kiwi-brunatny" class="button">Historia Edycji</a>
-</div>
+        <div class="container">
+            <div class="frame">
+                <h4>Użytkownicy Kiwipedii</h4>
+                <button onclick="location.href='/admin/manage-users'">Zarządaj użytkowinikami</button>
+                <button onclick="location.href='/admin/statistics'">Statystyki</button>
+            </div>
+            <div class="frame">
+                <h4>Treść na Kiwipedii</h4>
+                <button onclick="location.href='/admin/edit-history/kiwi-brunatny'">Historia Edycji</button>
+                <button onclick="location.href='/admin/statistics'">Statystyki</button>
+            </div>
+        </div>
 </body>
 </html>

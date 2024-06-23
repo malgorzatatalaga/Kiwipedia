@@ -8,10 +8,12 @@ import com.example.kiwipedia.backend.repository.UserRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -35,12 +37,14 @@ public class UserService {
         UserEntity newUser = new UserEntity();
         newUser.setUsername(registerDTO.getUsername());
         newUser.setPassword(passwordEncoder.encode(registerDTO.getPassword()));
+        newUser.setRegistrationDate(LocalDateTime.now());
 
         Role userRole = roleRepository.findByName("USER")
                 .orElseThrow(() -> new RuntimeException("Error: Role USER is not found."));
         newUser.setRoles(List.of(userRole));
 
         userRepository.save(newUser);
+
     }
 
     @Transactional
@@ -66,5 +70,10 @@ public class UserService {
         user.setRoles(new ArrayList<>(Collections.singletonList(newRole)));
 
         userRepository.save(user);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Object[]> getMonthlyRegistrations(int year) {
+        return userRepository.findMonthlyRegistrations(year);
     }
 }

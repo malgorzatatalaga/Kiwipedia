@@ -6,12 +6,15 @@ import com.example.kiwipedia.backend.repository.UserRepository;
 import com.example.kiwipedia.backend.service.EditHistoryService;
 import com.example.kiwipedia.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -32,7 +35,7 @@ public class AdminController {
     public String manageUsers(Model model) {
         List<UserEntity> users = (List<UserEntity>) userRepository.findAll();
         model.addAttribute("users", users);
-        return "manageUsers";
+        return "zarzadzanie-uzytkownikami";
     }
 
     @Autowired
@@ -50,7 +53,7 @@ public class AdminController {
         UserEntity user = userService.getUserById(id);
         model.addAttribute("user", user);
         model.addAttribute("roles", List.of("ADMIN", "USER"));
-        return "edit-user";
+        return "edycja-uzytkownikow";
     }
 
     @PostMapping("/update-user/{id}")
@@ -63,6 +66,40 @@ public class AdminController {
     public String showEditHistory(Model model) {
         List<EditHistory> editHistoryList = editHistoryService.getEditHistoryByPageName("kiwi-brunatny");
         model.addAttribute("editHistoryList", editHistoryList);
-        return "edit-history";
+        return "historia-edycji";
+    }
+
+    @GetMapping("/stats")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> getAdminStats() {
+        int currentYear = java.time.Year.now().getValue();
+        List<Object[]> monthlyRegistrationsRaw = userService.getMonthlyRegistrations(currentYear);
+
+        Integer[] monthlyRegistrations = new Integer[12];
+        for (int i = 0; i < 12; i++) {
+            monthlyRegistrations[i] = 0;
+        }
+        for (Object[] entry : monthlyRegistrationsRaw) {
+            int month = (int) entry[0] - 1;
+            int count = ((Number) entry[1]).intValue();
+            monthlyRegistrations[month] = count;
+        }
+
+        Map<String, Object> stats = new HashMap<>();
+        stats.put("monthlyRegistrations", monthlyRegistrations);
+
+        // Mock data for pageEditCounts as an example
+        Map<String, Integer> pageEditCounts = new HashMap<>();
+        pageEditCounts.put("Page 1", 5);
+        pageEditCounts.put("Page 2", 3);
+        pageEditCounts.put("Page 3", 8);
+        stats.put("pageEditCounts", pageEditCounts);
+
+        return ResponseEntity.ok(stats);
+    }
+
+    @GetMapping("/statistics")
+    public String showStatistics(Model model) {
+        return "statystyki-uzytkownicy";
     }
 }
