@@ -23,6 +23,10 @@
 </div>
 <div>
   <p th:text="${kiwi.description}"></p>
+  <div th:each="taxonomy : ${taxonomyList}">
+    <p th:text="${taxonomy.additionalInfo}"></p>
+    <p th:text="${taxonomy.info}"></p>
+  </div>
 </div>
 <a th:href="@{/gatunki/kiwi-plamisty/edit}" class="button">Edytuj</a>
 </body>
