@@ -23,13 +23,13 @@
 <form th:action="@{/gatunki/kiwi-plamisty/update}" method="post">
     <input type="hidden" name="id" th:value="${kiwi.id}" />
 
-    <label for="commonName">Common Name:</label>
+    <label for="commonName">Nazwa własna:</label>
     <input type="text" id="commonName" name="commonName" th:value="${kiwi.commonName}" />
 
-    <label for="name">Scientific Name:</label>
+    <label for="name">Nazwa naukowa:</label>
     <input type="text" id="name" name="name" th:value="${kiwi.name}" />
 
-    <label for="description">Description:</label>
+    <label for="description">Opis:</label>
     <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
 
     <button type="submit" class="button">Zaktualizuj</button>

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="pl" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
   <meta charset="UTF-8">
   <title>Edytuj Kiwi Brunatny</title>
@@ -31,6 +31,17 @@
 
   <label for="description">Description:</label>
   <textarea id="description" name="description" th:text="${kiwi.description}"></textarea>
+
+  <h2>Subspecies</h2>
+  <div th:each="subspecies, iterStat : ${subspeciesList}">
+    <input type="hidden" name="subspeciesId" th:value="${subspecies.id}" />
+
+    <label th:for="|subspeciesName__${iterStat.index}|">Subspecies Name:</label>
+    <input type="text" th:id="|subspeciesName__${iterStat.index}|" name="subspeciesName" th:value="${subspecies.name}" />
+
+    <label th:for="|subspeciesDescription__${iterStat.index}|">Subspecies Description:</label>
+    <textarea th:id="|subspeciesDescription__${iterStat.index}|" name="subspeciesDescription" th:text="${subspecies.description}"></textarea>
+  </div>
 
   <button type="submit" class="button">Zaktualizuj</button>
 </form>

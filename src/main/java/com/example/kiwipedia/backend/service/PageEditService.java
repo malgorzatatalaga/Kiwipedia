@@ -2,6 +2,7 @@ package com.example.kiwipedia.backend.service;
 
 import com.example.kiwipedia.backend.model.EditHistory;
 import com.example.kiwipedia.backend.model.UserEntity;
+import com.example.kiwipedia.backend.model.kiwi.Subspecies;
 import com.example.kiwipedia.backend.repository.EditHistoryRepository;
 import com.example.kiwipedia.backend.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,4 +40,14 @@ public class PageEditService {
     public List<EditHistory> getEditHistoryByPageName(String pageName) {
         return editHistoryRepository.findByPageName(pageName);
     }
+
+    public void saveSubspeciesEditHistory(Subspecies oldSubspecies, Subspecies newSubspecies) {
+        if (!oldSubspecies.getName().equals(newSubspecies.getName())) {
+            saveEditHistory("kiwi-brunatny", oldSubspecies.getName(), newSubspecies.getName());
+        }
+        if (!oldSubspecies.getDescription().equals(newSubspecies.getDescription())) {
+            saveEditHistory("kiwi-brunatny", oldSubspecies.getDescription(), newSubspecies.getDescription());
+        }
+    }
+
 }
